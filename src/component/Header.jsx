@@ -1,18 +1,34 @@
 import { CircleUserRound, Menu, Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../store/slice/appNavSlice";
 import { Link } from "react-router";
 import { YOUTUBE_SEARCH_API } from "../utils/constant";
+import { addCacheRes } from "../store/slice/searchSlice";
 
 const Header = () => {
   const [searchText, setSearchText] = useState("");
   const [searchSuggestionText, setSearchSuggestionText] = useState([]);
   const [showSuggestionText, setShowSuggestionText] = useState(false);
 
+
+  //! Dispatch to Add Search Cache
+  const dispatch = useDispatch()
+
+  //! Subscribe the Search Cache 
+  const searchCahe = useSelector((store) => store.serach)
+
   //=> Using Debounce for Serach Suggestions
+  //=> Caching the Serach Result in Redux
   useEffect(() => {
-    const searchTimer = setTimeout(() => searchSuggestion(searchText), 200)
+    const searchTimer = setTimeout(() => {
+      if (searchCahe[searchText]) {
+        setSearchSuggestionText(searchCahe[searchText]);
+      } else {
+        searchSuggestion(searchText)
+      }
+    }
+      , 200)
     return () => {
       clearTimeout(searchTimer);
     }
@@ -21,11 +37,11 @@ const Header = () => {
   const searchSuggestion = async (query) => {
     const response = await fetch(YOUTUBE_SEARCH_API + query);
     const data = await response.json();
+    searchText && dispatch(addCacheRes({ [searchText]: data[1] }))
     setSearchSuggestionText(data[1]);
-    // console.log(data[1]);
+    // console.log(data);
   }
 
-  const dispatch = useDispatch();
 
   return (
     <div className="grid grid-cols-12 gap-4 fixed top-0 right-0 left-0 bg-white px-3 py-2 shadow-md z-10">

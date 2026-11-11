@@ -11,7 +11,7 @@ const VideoCrad = ({ info }) => {
     <Link to={`/watch?v=${id}`}>
       <div className="flex flex-col p-3 rounded-xl cursor-pointer hover:bg-red-50">
         <div className="thumbnail mb-2 relative">
-          <img src={snippet?.thumbnails?.maxres.url} className="rounded-xl object-fill h-full" alt="{snippet?.title}" />
+          <img src={snippet?.thumbnails?.maxres?.url} className="rounded-xl object-fill h-full" alt="{snippet?.title}" />
           <p className="absolute bottom-1.5 right-2 font-medium text-white text-sm px-1  bg-mist-900 rounded">{formatDuration(contentDetails.duration)}</p>
         </div>
         <div className="flex gap-2">

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { closeMenu } from '../store/slice/appNavSlice';
 import { useSearchParams } from 'react-router';
+import CommmentContainer from './CommmentContainer';
 
 const WatchPage = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,6 @@ const WatchPage = () => {
 
   return (
     <div>
-      <h1>Watch</h1>
       <iframe
         width="1155"
         height="650"
@@ -23,6 +23,7 @@ const WatchPage = () => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       ></iframe>
+      <CommmentContainer />
     </div>
   );
 }
