@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 
 const Sidebar = () => {
   const appNavIsOpen = useSelector((store) => store.appNav.isMenuOpen);
-  // console.log(appNavIsOpen);
+  console.log(appNavIsOpen);
 
   return (
     <div className={appNavIsOpen ? "w-50" : "w-18"}>

@@ -1,12 +1,16 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import MainContainer from "./MainContainer";
+import { Outlet } from "react-router";
+import Header from "./Header";
 
 const Body = () => {
   return (
-    <div className="flex gap-3 pt-2">
-      <Sidebar />
-      <MainContainer />
+    <div className="flex flex-col gap-3 relative pt-12 px-1 min-h-screen">
+      <Header />
+      <div className="flex gap-3 flex-1">
+        <Sidebar />
+        <Outlet />
+      </div>
     </div>
   );
 };
